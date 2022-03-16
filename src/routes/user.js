@@ -1,12 +1,10 @@
 const { Router } = require('express');
-const Pople = Router();
-Pople.get("/users", (req, res) => {
-    const users = [{ id: 1, name: "Duy", age: 20 }, { id: 2, name: "Hanh", age: 20 }, ]
-    res.json(users)
-});
-Pople.post("/users", (req, res) => {
-    const users = [{ id: 1, name: "Duy", age: "20" }, { id: 2, name: "Hanh", age: 20 }, ];
-    users.push(req.body);
-    res.json(users);
-})
-module.exports = Pople;
+import { create, get, list, remove, update } from '../controllers/users';
+import { checkAuth } from '../middleware/checkAuth';
+const pople = Router();
+pople.get("/users", checkAuth, list);
+pople.get("/user/:id", get);
+pople.post("/user", checkAuth, create);
+pople.delete("/user/:id", remove);
+pople.put("/user/:id", update)
+export default pople;

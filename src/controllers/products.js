@@ -2,15 +2,15 @@
 // const products = [{ id: 1, name: "product" }, { id: 2, name: "productB" }, ];
 // const Product = mongoose.model('Product', { name: String });
 import Product from "../models/product";
+import slugify from 'slugify';
 export const list = async(req, res) => {
-
     // get all
     try {
         const products = await Product.find().exec();
         res.json(products);
     } catch (error) {
         res.status(400).json({
-            message: "Them moi thanh cong"
+            message: "lay sp thanh cong"
         })
     }
 }
@@ -24,17 +24,16 @@ export const get = async(req, res) => { // get a product
         })
     }
 }
-export const create = async(req, res) => {
-    // create product
+export const create = async(req, res) => { // create product
+    req.body.slug = slugify(req.body.name);
     try {
-        const product = await new Product(req.body).save();
+        const product = await new Product(req.body).save()
         res.json(product);
     } catch (error) {
         res.status(400).json({
-            message: "Them san pham thanh cong"
+            message: "Thêm sản phẩm không thành công"
         })
     }
-
 }
 
 export const remove = async(req, res) => {
