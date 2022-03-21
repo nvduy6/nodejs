@@ -1,10 +1,9 @@
-const { Router } = require('express');
-import { create, get, list, remove, update } from '../controllers/users';
-import { checkAuth } from '../middleware/checkAuth';
-const pople = Router();
-pople.get("/users", checkAuth, list);
-pople.get("/user/:id", get);
-pople.post("/user", checkAuth, create);
-pople.delete("/user/:id", remove);
-pople.put("/user/:id", update)
-export default pople;
+import { Router } from "express";
+import { create, get, list, remove, update } from "../controllers/users";
+const router = Router();
+router.get("/user/:id", get);
+router.get("/users", list);
+router.post("/user", create);
+router.put("/user/:id", update);
+router.delete("/user/:id", remove);
+export default router
