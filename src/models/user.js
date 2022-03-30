@@ -11,6 +11,13 @@ const uersChema = new Schema({
         type: String,
         required: true
     },
+    role: {
+        type: Number,
+        default: 0
+    },
+    salt:{
+        type:String
+    },
     password: {
         type: String,
         required: true
@@ -24,7 +31,7 @@ uersChema.methods = {
     encryptPassword(password) {
         if (!password) return;
         try {
-            return createHmac('sha256', '123456').update(password).digest('hex');
+            return createHmac('sha256', this.salt).update(password).digest('hex');
 
         } catch (error) {
             console.log(error)
@@ -33,7 +40,7 @@ uersChema.methods = {
 }
 uersChema.pre("save", function(next) {
     try {
-        // this.salt = uuidv4();
+        this.salt = uuidv4();
         this.password = this.encryptPassword(this.password);
         next();
     } catch (error) {
