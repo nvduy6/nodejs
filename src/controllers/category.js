@@ -37,10 +37,10 @@ export const read = async(req, res) => {
     // get all
     try {
         const category = await Category.findOne({ slug: req.params.slug }).exec();
-        const products = await Product.find({ category }).populate('category').select('-category').exec();
+        const products = await Product.find({ category: category }).populate('category').select('-category').exec();
         console.log('products', products);
         res.json({
-            // category,
+            category,
             products
         });
 

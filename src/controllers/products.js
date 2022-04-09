@@ -2,6 +2,7 @@
 // const products = [{ id: 1, name: "product" }, { id: 2, name: "productB" }, ];
 // const Product = mongoose.model('Product', { name: String });
 import Product from "../models/product";
+import Category from "../models/category";
 import slugify from 'slugify';
 export const list = async(req, res) => {
     // get all
@@ -63,5 +64,12 @@ export const update = async(req, res) => {
         res.status(400).json({
             message: "Cap nhat thanh cong"
         })
+    }
+}
+export const read = async(req, res) => {
+    try {
+        const products = await Product.findOne({ slug: read.params.slug }).exec();
+    } catch (error) {
+
     }
 }

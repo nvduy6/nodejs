@@ -30,3 +30,13 @@ export const update = async(req, res) => {
         })
     }
 }
+export const remove = async(req, res) => {
+    try {
+        const post = await Posts.findOneAndDelete({ _id: req.params.id }).exec();
+        res.json(post)
+    } catch (error) {
+        res.status(400).json({
+            message: "Ko xoa ko thanh cong"
+        })
+    }
+}
