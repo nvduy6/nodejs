@@ -8,6 +8,7 @@ router.get("/products/:id", get)
 router.post("/products/:userId", requireSignin, isAuth, isAdmin, create);
 // router.post("/products", create);
 router.delete("/products/:id", remove)
-router.put("/products/:id", update)
+    // router.put("/products/:id", update)
+router.put("/products/:id/:userId", requireSignin, isAuth, isAdmin, update)
 router.param("userId", userById);
 export default router;
